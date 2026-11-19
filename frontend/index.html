@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent ID Hub — Check-in &amp; Job Board untuk Pemegang Agent ID</title>
+<style>
+  :root { --bg:#0f141b; --card:#1a2230; --text:#eef2f7; --muted:#9fb0c3; --accent:#f0b90b; --green:#2fbf71; --red:#e5484d; --line:#2a3648; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--text); }
+  header { padding:20px 16px 8px; max-width:860px; margin:auto; }
+  h1 { margin:0 0 4px; font-size:26px; } h1 span { color:var(--accent); }
+  p.sub { color:var(--muted); margin:4px 0 0; }
+  main { max-width:860px; margin:auto; padding:12px 16px 40px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin:12px 0; }
+  .warn { background:#3a2a12; border:1px solid #8a6d1b; border-radius:10px; padding:12px; font-size:14px; line-height:1.5; }
+  button { background:var(--accent); color:#111; border:0; border-radius:10px; padding:11px 16px; font-weight:700; cursor:pointer; font-size:15px; }
+  button.secondary { background:transparent; color:var(--text); border:1px solid var(--line); }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  button.danger { background:transparent; color:var(--red); border:1px solid var(--red); }
+  input, textarea, select { width:100%; padding:11px; margin:6px 0 10px; border-radius:10px; border:1px solid var(--line); background:#0f141b; color:var(--text); font-size:15px; }
+  label { font-size:13px; color:var(--muted); }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .stat { flex:1; min-width:110px; background:#0f141b; border:1px solid var(--line); border-radius:10px; padding:10px; }
+  .stat b { display:block; font-size:22px; } .stat span { color:var(--muted); font-size:12px; }
+  .job { border:1px solid var(--line); border-radius:12px; padding:14px; margin:10px 0; background:#0f141b; }
+  .job h3 { margin:0 0 4px; } .job p { color:var(--muted); margin:4px 0; font-size:14px; }
+  .badge { display:inline-block; padding:3px 9px; border-radius:20px; font-size:12px; font-weight:700; background:#22314a; }
+  .badge.open { background:#123f2a; color:#7be2a8; } .badge.done { background:#123f2a; color:#7be2a8; }
+  .badge.cancel { background:#3f1a1a; color:#ff9a9a; }
+  .mono { font-family:ui-monospace,Menlo,monospace; font-size:13px; word-break:break-all; }
+  #status { font-size:14px; color:var(--muted); min-height:20px; }
+  #status.err { color:#ff9a9a; } #status.ok { color:#7be2a8; }
+  footer { color:var(--muted); font-size:13px; line-height:1.6; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Agent ID <span>Hub</span></h1>
+  <p class="sub">Check-in harian &amp; job board — hanya untuk pemegang Agent ID (SPACE ID) di BNB Chain. Tanpa biaya platform, tanpa janji return.</p>
+</header>
+<main>
+  <div class="card">
+    <div class="row">
+      <button id="connectBtn">Hubungkan Wallet</button>
+      <span id="account" class="mono">Belum terhubung</span>
+    </div>
+    <p id="status"></p>
+    <div class="row" id="profileRow" style="display:none">
+      <div class="stat"><b id="stStreak">–</b><span>Streak (hari)</span></div>
+      <div class="stat"><b id="stCheckins">–</b><span>Total check-in</span></div>
+      <div class="stat"><b id="stPoints">–</b><span>Poin</span></div>
+      <div class="stat"><b id="stJobsDone">–</b><span>Job selesai</span></div>
+    </div>
+    <p id="holderLine"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">✅ Check-in Harian</h2>
+    <p style="color:var(--muted)">Check-in sekali per hari UTC. Streak berlanjut kalau check-in di hari berikutnya, reset kalau bolong. +10 poin per check-in.</p>
+    <button id="checkinBtn" disabled>Check-in Hari Ini</button>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">💼 Buat Job (butuh Agent ID)</h2>
+    <div class="warn">⚠️ <b>Peringatan risiko:</b> Membuat job mengunci BNB kamu sebagai escrow di smart contract. Dana hanya kembali lewat <b>Cancel</b> (sebelum ada hasil kerja) atau dibayar ke worker lewat <b>Approve</b> yang kamu konfirmasi sendiri di wallet. Selalu periksa detail transaksi di wallet sebelum menekan Confirm. Jangan kirim dana yang kamu tidak sanggup kehilangannya. Tidak ada janji penghasilan / return.</div>
+    <label>Judul job</label>
+    <input id="jobTitle" placeholder="cth: Perbaiki landing page">
+    <label>Deskripsi</label>
+    <textarea id="jobDesc" rows="3" placeholder="Jelaskan tugasnya, kriteria selesai, dan referensi"></textarea>
+    <label>Reward (BNB) — langsung jadi escrow</label>
+    <input id="jobReward" type="number" step="0.001" min="0.001" placeholder="0.05">
+    <button id="createJobBtn" disabled>Buat Job &amp; Kunci Escrow</button>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">📋 Daftar Job</h2>
+    <div class="row"><button class="secondary" id="refreshBtn">Muat Ulang Job</button><span id="jobCount" style="color:var(--muted)"></span></div>
+    <div id="jobs"><p style="color:var(--muted)">Hubungkan wallet dulu, atau muat ulang untuk melihat job.</p></div>
+  </div>
+
+  <footer class="card">
+    <b>Cara kerja &amp; keamanan</b>
+    <ul>
+      <li>Login hanya lewat wallet kamu sendiri (Binance Wallet / MetaMask). <b>Tidak ada</b> login QR di web, tidak ada pairing code, tidak ada seed phrase / private key yang diminta — jangan pernah berikan itu ke siapa pun.</li>
+      <li>Setiap pergerakan dana adalah transaksi yang <b>kamu konfirmasi sendiri</b> di wallet. Tidak ada transfer otomatis / terjadwal.</li>
+      <li>Kontrak tidak memungut fee dan owner tidak bisa menarik dana pengguna. Dana escrow hanya bisa keluar lewat Approve (ke worker) atau Cancel (kembali ke poster).</li>
+      <li>Agent ID di sini dipakai sebagai <b>gerbang akses</b> (cek <span class="mono">balanceOf</span> di kontrak Agent ID). Aplikasi ini <b>bukan</b> alat untuk mencari wallet orang lain berdasarkan nama.</li>
+      <li>Kontrak Agent ID: <span class="mono">0x60b9262456de011f7d15a54cdd8c48baaa8b022f</span></li>
+    </ul>
+  </footer>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.15.0/dist/ethers.umd.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+// Deployed mainnet 19 Nov 2026: 0xBC9DAD0da80D766e28F6475aea438486cE5CEE1d
+const CONFIG = {
+  CONTRACT_ADDRESS: "0xBC9DAD0da80D766e28F6475aea438486cE5CEE1d",
+  CHAIN_ID: 56, // BNB Smart Chain Mainnet
+  CHAIN_NAME: "BNB Smart Chain",
+  AGENT_ID_ADDRESS: "0x60b9262456de011f7d15a54cdd8c48baaa8b022f",
+  EXPLORER: "https://bscscan.com",
+};
