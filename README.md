@@ -79,8 +79,8 @@ Jalankan frontend: buka `frontend/index.html` lewat static server apa pun, mis. 
 - [x] README + `.env.example` + `.gitignore` (tanpa key)
 - [x] **Deploy BSC Mainnet 19 Nov 2026: `0xBC9DAD0da80D766e28F6475aea438486cE5CEE1d`** — deployer `0xB54B9556aCeAa88cDCf709d0B7342a783E8d7650`, biaya 0,00023802 BNB, sisa 0,00076198 BNB. Frontend config sudah mainnet (chain 56).
 - [x] **Verifikasi source di BscScan — TERVERIFIKASI** (v0.8.20+commit.a1b79de6, MIT, via Etherscan API v2)
-- [ ] Repo open-source (GitHub) — push repo ini ke GitHub publik sebelum submit
-- [ ] Website live — host frontend (GitHub Pages) dan isi URL ke SUBMISSION.md
+- [x] Repo open-source (GitHub) — https://github.com/NattaNada/agent-id-hub (publik, MIT, branch `main`, push 19 Nov 2026)
+- [x] Website live — https://nattanada.github.io/agent-id-hub/ (GitHub Pages, deploy folder `frontend/` via workflow `.github/workflows/pages.yml`; pertama sempat gagal karena Pages belum di-set ke GitHub Actions, re-run berhasil 09:23 WIB)
 - [ ] Raih 30 alamat Agent ID berbeda yang berinteraksi selama periode submit (syarat Innovation Award) — check-in harian adalah hook-nya; promosikan lewat X dengan `#BinanceWalletHackathon #AgenticWallet`. Lihat rencana + draf postingan di `SUBMISSION.md`.
 - [ ] Submit: nama project, website, alamat kontrak, deskripsi pemakaian Agent ID — **form submit project belum ditemukan link-nya di pengumuman resmi (dicek 19 Nov 2026)**; cek pengumuman + @BinanceWallet sebelum 9 Des 2026 15:00 WIB. Paket siap tempel ada di `SUBMISSION.md`.
 

@@ -27,13 +27,11 @@ activity growing — the Pioneer Award is ranked from on-chain data alone.
 
 - **Project name:** Agent ID Hub
 - **Team:** Individual — Arie Kurniawan (Agent ID: `nadanatta`)
-- **Website (live app):** _PENDING — frontend is static (`frontend/index.html`,
-  `frontend/app.js`, `frontend/config.js`) and points at the mainnet contract.
-  Host it before submitting: GitHub Pages from the repo below is the intended
-  route. Do not invent a URL here._
-- **Source code (open-source, MIT):** repo in `~/workspace/agent-id-hub/`
-  — push to GitHub before submitting and paste the repo URL here.
-  (`.env` is gitignored; no keys in the repo.)
+- **Website (live app):** https://nattanada.github.io/agent-id-hub/
+  (GitHub Pages, deploys folder `frontend/` from branch `main` via
+  `.github/workflows/pages.yml`)
+- **Source code (open-source, MIT):** https://github.com/NattaNada/agent-id-hub
+  (public repo, branch `main`; `.env` is gitignored; no keys in the repo.)
 - **Contract (BNB Chain mainnet, chain 56):**
   - AgentIDHub: `0xBC9DAD0da80D766e28F6475aea438486cE5CEE1d`
   - BscScan (source verified): https://bscscan.com/address/0xBC9DAD0da80D766e28F6475aea438486cE5CEE1d
@@ -131,7 +129,7 @@ Community Promotion Campaign (20 winners share 2,000 USDC). Keep hashtags
 > ✅ Live on BNB Chain, source verified on BscScan
 >
 > Holders, check in once — it costs cents:
-> [LIVE APP URL]
+> https://nattanada.github.io/agent-id-hub/
 > Contract: 0xBC9DAD0da80D766e28F6475aea438486cE5CEE1d
 >
 > #BinanceWalletHackathon #AgenticWallet
@@ -145,7 +143,7 @@ Community Promotion Campaign (20 winners share 2,000 USDC). Keep hashtags
 > wallet. Good work sticks to you. Bad work does too.
 >
 > That's the anti-Sybil property a job board actually needs.
-> Try it: [LIVE APP URL]
+> Try it: https://nattanada.github.io/agent-id-hub/
 >
 > #BinanceWalletHackathon #AgenticWallet
 
@@ -158,7 +156,7 @@ Community Promotion Campaign (20 winners share 2,000 USDC). Keep hashtags
 > fee 0%, kontrak udah live di BNB Chain & terverifikasi di BscScan.
 >
 > Holder, check-in sekali aja, gas-nya receh:
-> [LIVE APP URL]
+> https://nattanada.github.io/agent-id-hub/
 >
 > #BinanceWalletHackathon #AgenticWallet
 
@@ -168,7 +166,7 @@ Community Promotion Campaign (20 winners share 2,000 USDC). Keep hashtags
 >
 > Still need [30-N] more holders to qualify for the Innovation Award.
 > If you hold an Agent ID, one check-in is all it takes:
-> [LIVE APP URL]
+> https://nattanada.github.io/agent-id-hub/
 >
 > #BinanceWalletHackathon #AgenticWallet
 
@@ -178,8 +176,8 @@ Community Promotion Campaign (20 winners share 2,000 USDC). Keep hashtags
 - [x] Source verified on BscScan (v0.8.20, MIT)
 - [x] 13/13 Hardhat tests pass
 - [x] Frontend wired to mainnet contract (chain 56)
-- [ ] Repo pushed to GitHub (public, MIT)
-- [ ] Frontend hosted live (GitHub Pages) — paste URL into §1
+- [x] Repo pushed to GitHub (public, MIT) — https://github.com/NattaNada/agent-id-hub
+- [x] Frontend hosted live (GitHub Pages) — https://nattanada.github.io/agent-id-hub/
 - [ ] 30 distinct Agent ID addresses interacted (check BscScan events)
 - [ ] Seed 3–5 real jobs on the board
 - [ ] Project-submission form found + fields pasted + submitted before
